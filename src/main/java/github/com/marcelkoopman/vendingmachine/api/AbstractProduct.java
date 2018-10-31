@@ -12,8 +12,22 @@ public abstract class AbstractProduct implements Product {
     public abstract String getName();
 
     @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("id: ");
+        builder.append(getId());
+        builder.append(", ");
+        builder.append("ean: ");
+        builder.append(getEAN());
+        builder.append(", ");
+        builder.append("name: ");
+        builder.append(getName());
+        return builder.toString();
+    }
+
+    @Override
     public int compareTo(Product o) {
-        return o.getName().compareTo(getName());
+        return o.getId().compareTo(getId());
     }
 
     @Override

@@ -6,7 +6,7 @@ import github.com.marcelkoopman.vendingmachine.api.VendingMachine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Set;
+import java.util.Map;
 
 public class VendingMachineV1 implements VendingMachine {
 
@@ -17,11 +17,12 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public void boot() {
-        LOGGER.info("Vending Machine is up.");
         refill();
-        for (Product availableProduct : getAvailableProducts()) {
-            LOGGER.info(availableProduct.getName());
-        }
+        LOGGER.info("Available products:");
+        getAvailableProducts().entrySet().stream().forEach(e ->
+                LOGGER.info("{} - {}", e.getKey(), e.getValue()));
+
+        LOGGER.info("Vending Machine is now operational.");
     }
 
     @Override
@@ -38,7 +39,7 @@ public class VendingMachineV1 implements VendingMachine {
     }
 
     @Override
-    public Set<Product> getAvailableProducts() {
-        return stockRegistry.getProductsInStock().keySet();
+    public Map<Product, Integer> getAvailableProducts() {
+        return stockRegistry.getProductsInStock();
     }
 }

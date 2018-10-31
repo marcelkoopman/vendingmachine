@@ -1,6 +1,6 @@
 package github.com.marcelkoopman.vendingmachine.api;
 
-import java.util.Set;
+import java.util.Map;
 
 public interface VendingMachine {
 
@@ -8,6 +8,6 @@ public interface VendingMachine {
     void refill();
     void shutDown();
 
-    Set<Product> getAvailableProducts();
+    Map<Product, Integer> getAvailableProducts();
 
 }

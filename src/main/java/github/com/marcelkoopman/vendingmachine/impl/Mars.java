@@ -12,7 +12,7 @@ public class Mars extends AbstractProduct {
 
     @Override
     public String getId() {
-        return ean;
+        return id;
     }
 
     @Override
