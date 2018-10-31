@@ -26,3 +26,4 @@ gradle/
 .idea/
 .gradle/
 *.iml
+out/
