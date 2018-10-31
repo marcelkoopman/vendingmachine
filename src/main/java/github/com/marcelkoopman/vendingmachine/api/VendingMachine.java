@@ -5,6 +5,7 @@ import java.util.Set;
 public interface VendingMachine {
 
     void boot();
+    void refill();
     void shutDown();
 
     Set<Product> getAvailableProducts();

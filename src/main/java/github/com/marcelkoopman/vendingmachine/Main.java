@@ -14,8 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
         vendingMachine.boot();
-        LOGGER.info("Available products:");
-        vendingMachine.getAvailableProducts().forEach( p -> LOGGER.info(p.getName()) );
         vendingMachine.shutDown();
     }
 }
