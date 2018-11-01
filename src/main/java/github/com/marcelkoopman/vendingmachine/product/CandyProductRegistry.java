@@ -19,7 +19,6 @@ public class CandyProductRegistry implements ProductRegistry {
 
     private final String generateId() {
         final String id = "" + new SecureRandom().nextInt(2048);
-        System.out.println(id);
         return id;
     }
 }

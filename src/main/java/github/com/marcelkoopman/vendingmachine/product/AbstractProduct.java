@@ -2,11 +2,17 @@ package github.com.marcelkoopman.vendingmachine.product;
 
 public abstract class AbstractProduct implements Product {
 
-    @Override
-    public abstract String getId();
+    protected String id, ean;
 
     @Override
-    public abstract String getEAN();
+    public String getId() {
+        return this.id;
+    }
+
+    @Override
+    public String getEAN() {
+        return this.ean;
+    }
 
     @Override
     public abstract String getName();
