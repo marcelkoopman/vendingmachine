@@ -1,7 +1,6 @@
-package github.com.marcelkoopman.vendingmachine.impl;
+package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
-import github.com.marcelkoopman.vendingmachine.api.Product;
-import github.com.marcelkoopman.vendingmachine.api.StockRegistry;
+import github.com.marcelkoopman.vendingmachine.product.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.api;
+package github.com.marcelkoopman.vendingmachine.product;
 
 public abstract class AbstractProduct implements Product {
 

@@ -1,6 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.impl;
-
-import github.com.marcelkoopman.vendingmachine.api.AbstractProduct;
+package github.com.marcelkoopman.vendingmachine.product;
 
 public class Mars extends AbstractProduct {
     private final String id, ean;

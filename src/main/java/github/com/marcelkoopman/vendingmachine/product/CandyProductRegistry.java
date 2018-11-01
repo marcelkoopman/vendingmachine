@@ -1,7 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.impl;
-
-import github.com.marcelkoopman.vendingmachine.api.Product;
-import github.com.marcelkoopman.vendingmachine.api.ProductRegistry;
+package github.com.marcelkoopman.vendingmachine.product;
 
 import java.security.SecureRandom;
 import java.util.Set;

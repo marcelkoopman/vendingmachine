@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.api;
+package github.com.marcelkoopman.vendingmachine.product;
 
 public interface Product extends Comparable<Product>{
     String getId();

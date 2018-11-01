@@ -1,9 +1,9 @@
 package github.com.marcelkoopman.vendingmachine;
 
 
-import github.com.marcelkoopman.vendingmachine.api.Product;
-import github.com.marcelkoopman.vendingmachine.api.VendingMachine;
-import github.com.marcelkoopman.vendingmachine.impl.VendingMachineV1;
+import github.com.marcelkoopman.vendingmachine.product.Product;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

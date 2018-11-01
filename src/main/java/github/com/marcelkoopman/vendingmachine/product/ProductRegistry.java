@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.api;
+package github.com.marcelkoopman.vendingmachine.product;
 
 import java.util.Set;
 
