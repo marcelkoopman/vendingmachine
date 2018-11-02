@@ -1,5 +1,5 @@
-import github.com.marcelkoopman.vendingmachine.vendingmachine.PriceRegistry;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.PriceRegistry;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

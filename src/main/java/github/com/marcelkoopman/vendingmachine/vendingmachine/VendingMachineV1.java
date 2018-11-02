@@ -1,6 +1,7 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.PriceRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class VendingMachineV1 implements VendingMachine {
 
+    private static final String NAME = "V1";
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
     private final PriceRegistry priceRegistry;
 
@@ -22,7 +24,7 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public String getName() {
-        return "V1";
+        return NAME;
     }
 
     @Override

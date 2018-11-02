@@ -1,6 +1,9 @@
-package github.com.marcelkoopman.vendingmachine.vendingmachine;
+package github.com.marcelkoopman.vendingmachine.vendingmachine.terminal;
 
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineException;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,6 +59,9 @@ public class VendingMachineTerminal {
         } else if (line.startsWith("price")) {
             doPriceProduct(line);
             continueReading = true;
+        } else if (line.startsWith("select")) {
+            doSelectProduct(line);
+            continueReading = true;
         } else if (line.startsWith("buy")) {
             doBuyProduct(line);
             continueReading = true;
@@ -78,6 +84,15 @@ public class VendingMachineTerminal {
     private void doRefill() {
         vendingMachineFiller.fillVendingMachine(vendingMachine);
         doListProducts();
+    }
+
+    private void doSelectProduct(String line) {
+        try {
+            final Product product = getProductFromInput(line);
+            LOGGER.info("Product info: " + product);
+        } catch (VendingMachineException e) {
+            LOGGER.error(e);
+        }
     }
 
     private void doListProducts() {

@@ -1,7 +1,11 @@
 package github.com.marcelkoopman.vendingmachine;
 
 
-import github.com.marcelkoopman.vendingmachine.vendingmachine.*;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.DefaultPriceRegistry;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.terminal.VendingMachineTerminal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

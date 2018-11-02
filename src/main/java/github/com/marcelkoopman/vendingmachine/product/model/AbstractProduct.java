@@ -3,7 +3,6 @@ package github.com.marcelkoopman.vendingmachine.product.model;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.UUID;
 
@@ -17,11 +16,6 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
     @Override
     public UUID getUUID() {
         return uuid;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override

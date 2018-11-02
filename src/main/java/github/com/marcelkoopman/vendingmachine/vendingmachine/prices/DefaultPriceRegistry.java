@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.vendingmachine;
+package github.com.marcelkoopman.vendingmachine.vendingmachine.prices;
 
 import github.com.marcelkoopman.vendingmachine.product.model.Ean;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
@@ -18,6 +18,8 @@ public class DefaultPriceRegistry implements PriceRegistry {
     static {
         priceList.put(Ean.valueOf("5000159408301"), 0.75d);
         priceList.put(Ean.valueOf("6294001813286"), 0.65d);
+        priceList.put(Ean.valueOf("8715600234565"), 0.70d);
+        // 1535589200415 Coca Cola
     }
 
     @Override
@@ -26,6 +28,7 @@ public class DefaultPriceRegistry implements PriceRegistry {
         final double priceValue;
         if (price == null || price.doubleValue() == 0d) {
             LOG.warn("Product has no registered price! Giving away for free");
+            LOG.info("PriceList is " + priceList);
             priceValue = 0d;
         } else {
             priceValue = price.doubleValue();

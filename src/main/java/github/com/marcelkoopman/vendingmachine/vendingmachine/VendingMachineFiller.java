@@ -2,6 +2,7 @@ package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
 import github.com.marcelkoopman.vendingmachine.product.CocaCola;
 import github.com.marcelkoopman.vendingmachine.product.MarsBar;
+import github.com.marcelkoopman.vendingmachine.product.SisiNoBubbles;
 import github.com.marcelkoopman.vendingmachine.product.Snickers;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +17,7 @@ public class VendingMachineFiller {
     private static final Collection<Product> products = new HashSet<>();
 
     static {
-        products.add(new MarsBar());
+        products.add(new SisiNoBubbles());
         products.add(new Snickers());
         products.add(new MarsBar());
         products.add(new Snickers());
