@@ -1,41 +1,50 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
-import github.com.marcelkoopman.vendingmachine.product.CandyProductRegistry;
 import github.com.marcelkoopman.vendingmachine.product.Product;
-import github.com.marcelkoopman.vendingmachine.product.ProductRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class VendingMachineV1 implements VendingMachine {
 
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
-
-    private final ProductRegistry productRegistry = new CandyProductRegistry();
     private static final StockRegistry stockRegistry = new DefaultStockRegistry();
+    private final PriceRegistry priceRegistry;
 
-    @Override
-    public void boot() {
-        refill();
-        LOGGER.info("Available products:");
-        getAvailableProducts().entrySet().stream().forEach(e ->
-                LOGGER.info("{} - {}", e.getKey(), e.getValue()));
+    private Collection<Product> products = new TreeSet<>();
 
-        LOGGER.info("Vending Machine is now operational.");
+    public VendingMachineV1(PriceRegistry priceRegistry) {
+        this.priceRegistry = priceRegistry;
     }
 
     @Override
-    public void refill() {
+    public String getName() {
+        return "V1";
+    }
+
+    @Override
+    public void boot() {
+        LOGGER.info("Vending Machine " + getName() + " is now operational.");
+    }
+
+    @Override
+    public void refill(Collection<Product> products) {
         LOGGER.info("Vending Machine refilling with products");
-        for (Product product : productRegistry.getProducts()) {
-            stockRegistry.stockProduct(product);
-        }
+        this.products.addAll(products);
+        LOGGER.info("Now containing " + this.products.size() + " products");
     }
 
     @Override
     public void shutDown() {
         LOGGER.info("Vending Machine has shut down.");
+    }
+
+    @Override
+    public String getFormattedPrice(Product product) {
+        return "EUR " + priceRegistry.getPriceForProduct(product);
     }
 
     @Override

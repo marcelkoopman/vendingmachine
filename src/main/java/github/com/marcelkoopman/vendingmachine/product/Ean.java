@@ -4,26 +4,33 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class AbstractProduct implements Product, Comparable<Product> {
+/**
+ * An EAN code is an unique identifier for products
+ */
+public class Ean implements Comparable<Ean> {
 
-    protected Ean ean;
-    protected String name;
+    private String ean;
+
+    public Ean(String ean) {
+        this.ean = ean;
+    }
+
+    public String getEan() {
+        return this.ean;
+    }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("ean: ");
-        builder.append(getEAN());
-        builder.append("name: ");
-        builder.append(getName());
+        builder.append(getEan());
         return builder.toString();
     }
 
     @Override
-    public int compareTo(Product o) {
+    public int compareTo(Ean o) {
         return new CompareToBuilder()
-                .append(this.ean, o.getEAN())
-                .append(this.name, o.getName())
+                .append(this.ean, o.getEan())
                 .toComparison();
     }
 
@@ -31,17 +38,14 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
     public int hashCode() {
         return new HashCodeBuilder().
                 append(ean).
-                append(name).
                 toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Product) {
-            final Product o = (Product) obj;
-            return new EqualsBuilder().append(this.ean, o.getEAN())
-                    .append(this.name, o.getName())
-                    .isEquals();
+        if (obj instanceof Ean) {
+            final Ean o = (Ean) obj;
+            return new EqualsBuilder().append(this.ean, o.getEan()).isEquals();
         } else {
             return false;
         }

@@ -2,7 +2,9 @@ package github.com.marcelkoopman.vendingmachine;
 
 
 import github.com.marcelkoopman.vendingmachine.product.Product;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.DefaultPriceRegistry;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,8 +18,8 @@ public class Main {
 
     private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
-    private static final VendingMachine vendingMachine = new VendingMachineV1();
-
+    private static final VendingMachine vendingMachine = new VendingMachineV1(new DefaultPriceRegistry());
+    private static final VendingMachineFiller filler = new VendingMachineFiller();
     private static final Map<String, String> commands = new TreeMap<>();
 
     static {
@@ -30,6 +32,7 @@ public class Main {
 
     public static void main(String[] args) {
         vendingMachine.boot();
+        filler.fillVendingMachine(vendingMachine);
         LOGGER.info(getHelp());
 
         Scanner scanner = new Scanner(System.in);
@@ -51,6 +54,11 @@ public class Main {
         } else if ("list".equals(line)) {
             final Map<Product, Integer> products = vendingMachine.getAvailableProducts();
             LOGGER.info("Available products: " + products.entrySet().stream().map(p -> p.getKey().getName()).collect(Collectors.joining(",")));
+            continueReading = true;
+        } else if (line.startsWith("price")) {
+            String product = line.split(" ")[1];
+            LOGGER.info("Check price for product " + product);
+            //     LOGGER.info(vendingMachine.getFormattedPrice(product));
             continueReading = true;
         } else {
             LOGGER.warn("Unrecognized command: " + line);
