@@ -56,6 +56,6 @@ public class VendingMachineV1 implements VendingMachine {
     public void buyProduct(Product product) {
         final Set<Product> newProducts = productList.stream().filter(p -> !p.getUUID().equals(product.getUUID())).collect(Collectors.toSet());
         this.productList = newProducts;
-        LOGGER.info("Product " + product.getName() + " bought.");
+        LOGGER.info("Product " + product.getName() + " bought for " + getFormattedPrice(product));
     }
 }

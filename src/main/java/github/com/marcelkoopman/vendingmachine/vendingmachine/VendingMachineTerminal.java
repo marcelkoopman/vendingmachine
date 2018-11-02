@@ -84,6 +84,8 @@ public class VendingMachineTerminal {
         if (products.length == 0) {
             LOGGER.info("Out of stock, use refill to restock");
         } else {
+            LOGGER.info("Available products");
+            LOGGER.info("------------------");
             for (int i = 0; i < products.length; ++i) {
                 LOGGER.info("" + i + " = " + products[i].getName());
             }

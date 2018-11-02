@@ -3,6 +3,7 @@ package github.com.marcelkoopman.vendingmachine.product;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * An EAN code is an unique identifier for products
@@ -11,7 +12,7 @@ public class Ean implements Comparable<Ean> {
 
     private String ean;
 
-    public Ean(String ean) {
+    private Ean(String ean) {
         this.ean = ean;
     }
 
@@ -19,12 +20,13 @@ public class Ean implements Comparable<Ean> {
         return this.ean;
     }
 
+    public static Ean valueOf(String ean) {
+        return new Ean(ean);
+    }
+
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ean: ");
-        builder.append(getEan());
-        return builder.toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override

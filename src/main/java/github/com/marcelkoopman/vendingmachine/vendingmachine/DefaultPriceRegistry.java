@@ -15,9 +15,9 @@ public class DefaultPriceRegistry implements PriceRegistry {
     private static final Logger LOG = LogManager.getLogger(DefaultPriceRegistry.class);
     private static final Map<Ean, Double> priceList = new HashMap<>();
 
-
     static {
-        priceList.put(new Ean("5000159408301"), Double.valueOf(0.75d));
+        priceList.put(Ean.valueOf("5000159408301"), 0.75d);
+        priceList.put(Ean.valueOf("6294001813286"), 0.65d);
     }
 
     @Override

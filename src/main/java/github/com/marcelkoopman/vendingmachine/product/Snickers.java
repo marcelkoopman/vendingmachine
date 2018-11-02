@@ -4,7 +4,7 @@ public class Snickers extends AbstractProduct {
 
     @Override
     public Ean getEAN() {
-        return new Ean("6294001813286");
+        return Ean.valueOf("6294001813286");
     }
 
     @Override

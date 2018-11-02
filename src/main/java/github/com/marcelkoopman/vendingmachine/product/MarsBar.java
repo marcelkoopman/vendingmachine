@@ -4,7 +4,7 @@ public class MarsBar extends AbstractProduct {
 
     @Override
     public Ean getEAN() {
-        return new Ean("5000159408301");
+        return Ean.valueOf("5000159408301");
     }
 
     @Override
