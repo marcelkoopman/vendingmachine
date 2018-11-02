@@ -10,6 +10,11 @@ public class SisiNoBubbles extends Beverage {
     }
 
     @Override
+    protected boolean containsAlcohol() {
+        return false;
+    }
+
+    @Override
     public Ean getEAN() {
         return Ean.valueOf("8715600234565");
     }

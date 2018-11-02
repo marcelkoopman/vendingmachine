@@ -4,6 +4,7 @@ import github.com.marcelkoopman.vendingmachine.product.CocaCola;
 import github.com.marcelkoopman.vendingmachine.product.MarsBar;
 import github.com.marcelkoopman.vendingmachine.product.SisiNoBubbles;
 import github.com.marcelkoopman.vendingmachine.product.Snickers;
+import github.com.marcelkoopman.vendingmachine.product.model.Doritos;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,9 +19,10 @@ public class VendingMachineFiller {
 
     static {
         products.add(new SisiNoBubbles());
-        products.add(new Snickers());
+        products.add(new Doritos());
         products.add(new MarsBar());
         products.add(new Snickers());
+        products.add(new Doritos());
         products.add(new CocaCola());
     }
 

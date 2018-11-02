@@ -19,6 +19,7 @@ public class DefaultPriceRegistry implements PriceRegistry {
         priceList.put(Ean.valueOf("5000159408301"), 0.75d);
         priceList.put(Ean.valueOf("6294001813286"), 0.65d);
         priceList.put(Ean.valueOf("8715600234565"), 0.70d);
+        priceList.put(Ean.valueOf("8710398158130"), 1.50d);
         // 1535589200415 Coca Cola
     }
 

@@ -20,5 +20,10 @@ public class CocaCola extends Beverage {
         return true;
     }
 
+    @Override
+    protected boolean containsAlcohol() {
+        return false;
+    }
+
 
 }

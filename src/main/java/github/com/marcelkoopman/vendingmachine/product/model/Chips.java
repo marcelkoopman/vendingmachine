@@ -3,11 +3,9 @@ package github.com.marcelkoopman.vendingmachine.product.model;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public abstract class Beverage extends AbstractProduct {
+public abstract class Chips extends AbstractProduct {
 
-    protected abstract boolean hasSoda();
-
-    protected abstract boolean containsAlcohol();
+    protected abstract ChipFlavour getFlavour();
 
     @Override
     public String toString() {
@@ -15,9 +13,7 @@ public abstract class Beverage extends AbstractProduct {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).
                 append("name", getName()).
                 append("ean", getEAN().getEan()).
-                append("soda", hasSoda()).
-                append("alcohol", containsAlcohol()).
+                append("flavour", getFlavour()).
                 toString();
     }
-
 }
