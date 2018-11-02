@@ -26,8 +26,9 @@ public class VendingMachineV1 implements VendingMachine {
     }
 
     @Override
-    public void boot() {
+    public boolean boot() {
         LOGGER.info("Vending Machine " + getName() + " is now operational.");
+        return true;
     }
 
     @Override

@@ -7,7 +7,8 @@ import java.util.Collection;
 public interface VendingMachine {
 
     String getName();
-    void boot();
+
+    boolean boot();
 
     void refill(Collection<Product> products);
 
