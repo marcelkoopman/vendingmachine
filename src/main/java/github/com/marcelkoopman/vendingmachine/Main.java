@@ -1,18 +1,10 @@
 package github.com.marcelkoopman.vendingmachine;
 
 
-import github.com.marcelkoopman.vendingmachine.product.Product;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.DefaultPriceRegistry;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -20,52 +12,13 @@ public class Main {
 
     private static final VendingMachine vendingMachine = new VendingMachineV1(new DefaultPriceRegistry());
     private static final VendingMachineFiller filler = new VendingMachineFiller();
-    private static final Map<String, String> commands = new TreeMap<>();
-
-    static {
-        commands.put("help", "Show this help text");
-        commands.put("select", "Select this product");
-        commands.put("price", "Show price of this product");
-        commands.put("list", "Show all available products");
-        commands.put("quit", "Quit application");
-    }
 
     public static void main(String[] args) {
         vendingMachine.boot();
-        filler.fillVendingMachine(vendingMachine);
-        LOGGER.info(getHelp());
-
-        Scanner scanner = new Scanner(System.in);
-        while (readFromConsole(scanner)) {
-            //
-        }
+        new VendingMachineTerminal(vendingMachine, filler).boot();
         vendingMachine.shutDown();
     }
 
-    private static boolean readFromConsole(Scanner scanner) {
-        final String line = scanner.nextLine();
-        final boolean continueReading;
-        if ("help".equals(line)) {
-            LOGGER.info(getHelp());
-            continueReading = true;
-        } else if ("quit".equals(line)) {
-            LOGGER.info("Quitting...");
-            continueReading = false;
-        } else if ("list".equals(line)) {
-            final Map<Product, Integer> products = vendingMachine.getAvailableProducts();
-            LOGGER.info("Available products: " + products.entrySet().stream().map(p -> p.getKey().getName()).collect(Collectors.joining(",")));
-            continueReading = true;
-        } else if (line.startsWith("price")) {
-            String product = line.split(" ")[1];
-            LOGGER.info("Check price for product " + product);
-            //     LOGGER.info(vendingMachine.getFormattedPrice(product));
-            continueReading = true;
-        } else {
-            LOGGER.warn("Unrecognized command: " + line);
-            continueReading = true;
-        }
-        return continueReading;
-    }
 
     // Retrieve and show all products in a single list.
     // Accept user input for selecting a product.
@@ -73,10 +26,4 @@ public class Main {
     // Accept user input for paying for the selected product.
     // Display the purchased product.
 
-
-    private static String getHelp() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(commands);
-        return builder.toString();
-    }
 }

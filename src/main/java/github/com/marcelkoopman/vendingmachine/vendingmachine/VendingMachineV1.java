@@ -5,16 +5,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class VendingMachineV1 implements VendingMachine {
 
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
-    private static final StockRegistry stockRegistry = new DefaultStockRegistry();
     private final PriceRegistry priceRegistry;
 
-    private Collection<Product> products = new TreeSet<>();
+    private Set<Product> productList = new TreeSet();
 
     public VendingMachineV1(PriceRegistry priceRegistry) {
         this.priceRegistry = priceRegistry;
@@ -32,9 +32,9 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public void refill(Collection<Product> products) {
-        LOGGER.info("Vending Machine refilling with products");
-        this.products.addAll(products);
-        LOGGER.info("Now containing " + this.products.size() + " products");
+        LOGGER.info("Vending Machine refilling with " + products.size() + " products");
+        productList.addAll(products);
+        LOGGER.info("Now containing " + this.productList.size() + " products");
     }
 
     @Override
@@ -44,11 +44,18 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public String getFormattedPrice(Product product) {
-        return "EUR " + priceRegistry.getPriceForProduct(product);
+        return priceRegistry.getCurrency().getSymbol() + " " + priceRegistry.getPriceForProduct(product);
     }
 
     @Override
-    public Map<Product, Integer> getAvailableProducts() {
-        return stockRegistry.getProductsInStock();
+    public Product[] getAvailableProducts() {
+        return productList.toArray(new Product[productList.size()]);
+    }
+
+    @Override
+    public void buyProduct(Product product) {
+        final Set<Product> newProducts = productList.stream().filter(p -> !p.getUUID().equals(product.getUUID())).collect(Collectors.toSet());
+        this.productList = newProducts;
+        LOGGER.info("Product " + product.getName() + " bought.");
     }
 }

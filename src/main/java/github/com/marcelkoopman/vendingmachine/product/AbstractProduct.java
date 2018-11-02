@@ -3,26 +3,32 @@ package github.com.marcelkoopman.vendingmachine.product;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.UUID;
 
 public abstract class AbstractProduct implements Product, Comparable<Product> {
 
     protected Ean ean;
     protected String name;
 
+    protected UUID uuid = UUID.randomUUID();
+
+    @Override
+    public UUID getUUID() {
+        return uuid;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ean: ");
-        builder.append(getEAN());
-        builder.append("name: ");
-        builder.append(getName());
-        return builder.toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override
     public int compareTo(Product o) {
         return new CompareToBuilder()
                 .append(this.ean, o.getEAN())
+                .append(this.uuid, o.getUUID())
                 .append(this.name, o.getName())
                 .toComparison();
     }
@@ -31,6 +37,7 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
     public int hashCode() {
         return new HashCodeBuilder().
                 append(ean).
+                append(uuid).
                 append(name).
                 toHashCode();
     }
@@ -40,6 +47,7 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
         if (obj instanceof Product) {
             final Product o = (Product) obj;
             return new EqualsBuilder().append(this.ean, o.getEAN())
+                    .append(this.uuid, o.getUUID())
                     .append(this.name, o.getName())
                     .isEquals();
         } else {
