@@ -18,12 +18,4 @@ public class Main {
         new VendingMachineTerminal(vendingMachine, filler).boot();
         vendingMachine.shutDown();
     }
-
-
-    // Retrieve and show all products in a single list.
-    // Accept user input for selecting a product.
-    // Show the price for a selected product.
-    // Accept user input for paying for the selected product.
-    // Display the purchased product.
-
 }

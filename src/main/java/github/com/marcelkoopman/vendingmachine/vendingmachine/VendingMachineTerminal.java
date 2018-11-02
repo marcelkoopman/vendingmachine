@@ -1,6 +1,6 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
-import github.com.marcelkoopman.vendingmachine.product.Product;
+import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,6 +77,7 @@ public class VendingMachineTerminal {
 
     private void doRefill() {
         vendingMachineFiller.fillVendingMachine(vendingMachine);
+        doListProducts();
     }
 
     private void doListProducts() {

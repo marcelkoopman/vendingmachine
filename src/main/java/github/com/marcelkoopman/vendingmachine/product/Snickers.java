@@ -1,6 +1,9 @@
 package github.com.marcelkoopman.vendingmachine.product;
 
-public class Snickers extends AbstractProduct {
+import github.com.marcelkoopman.vendingmachine.product.model.CandyBar;
+import github.com.marcelkoopman.vendingmachine.product.model.Ean;
+
+public class Snickers extends CandyBar {
 
     @Override
     public Ean getEAN() {
@@ -10,5 +13,10 @@ public class Snickers extends AbstractProduct {
     @Override
     public String getName() {
         return "Snickers Bar";
+    }
+
+    @Override
+    protected boolean hasCaramelIngredient() {
+        return true;
     }
 }

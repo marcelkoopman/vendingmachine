@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.product;
+package github.com.marcelkoopman.vendingmachine.product.model;
 
 import java.util.UUID;
 

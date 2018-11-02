@@ -1,6 +1,6 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
-import github.com.marcelkoopman.vendingmachine.product.Product;
+import github.com.marcelkoopman.vendingmachine.product.model.Product;
 
 import java.util.Collection;
 

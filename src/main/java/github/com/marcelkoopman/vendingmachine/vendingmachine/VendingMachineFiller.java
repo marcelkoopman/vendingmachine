@@ -1,8 +1,9 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
+import github.com.marcelkoopman.vendingmachine.product.CocaCola;
 import github.com.marcelkoopman.vendingmachine.product.MarsBar;
-import github.com.marcelkoopman.vendingmachine.product.Product;
 import github.com.marcelkoopman.vendingmachine.product.Snickers;
+import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +20,7 @@ public class VendingMachineFiller {
         products.add(new Snickers());
         products.add(new MarsBar());
         products.add(new Snickers());
+        products.add(new CocaCola());
     }
 
     public void fillVendingMachine(VendingMachine vendingMachine) {

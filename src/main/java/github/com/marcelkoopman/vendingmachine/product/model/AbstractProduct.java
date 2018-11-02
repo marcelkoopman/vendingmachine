@@ -1,4 +1,4 @@
-package github.com.marcelkoopman.vendingmachine.product;
+package github.com.marcelkoopman.vendingmachine.product.model;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;

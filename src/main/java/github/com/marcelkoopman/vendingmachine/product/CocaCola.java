@@ -1,22 +1,22 @@
 package github.com.marcelkoopman.vendingmachine.product;
 
-import github.com.marcelkoopman.vendingmachine.product.model.CandyBar;
+import github.com.marcelkoopman.vendingmachine.product.model.Beverage;
 import github.com.marcelkoopman.vendingmachine.product.model.Ean;
 
-public class MarsBar extends CandyBar {
+public class CocaCola extends Beverage {
 
     @Override
     public Ean getEAN() {
-        return Ean.valueOf("5000159408301");
+        return Ean.valueOf("1535589200415");
     }
 
     @Override
     public String getName() {
-        return "Mars Bar";
+        return "Coca Cola";
     }
 
     @Override
-    protected boolean hasCaramelIngredient() {
+    protected boolean hasSoda() {
         return true;
     }
 }
