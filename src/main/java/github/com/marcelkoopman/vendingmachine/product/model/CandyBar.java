@@ -7,13 +7,11 @@ public abstract class CandyBar extends AbstractProduct {
 
     protected abstract boolean hasCaramelIngredient();
 
-
     @Override
     public String toString() {
 
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).
                 append("name", getName()).
-                append("ean", getEAN().getEan()).
                 append("caramel", hasCaramelIngredient()).
                 toString();
     }

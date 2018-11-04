@@ -1,16 +1,14 @@
 package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
-import github.com.marcelkoopman.vendingmachine.product.CocaCola;
-import github.com.marcelkoopman.vendingmachine.product.MarsBar;
-import github.com.marcelkoopman.vendingmachine.product.SisiNoBubbles;
-import github.com.marcelkoopman.vendingmachine.product.Snickers;
-import github.com.marcelkoopman.vendingmachine.product.model.Doritos;
+import github.com.marcelkoopman.vendingmachine.product.*;
+import github.com.marcelkoopman.vendingmachine.product.model.ChipFlavour;
+import github.com.marcelkoopman.vendingmachine.product.model.Ean;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * A VendingMachine "filler" fills the vendng machine with products.
@@ -18,19 +16,23 @@ import java.util.HashSet;
 public class VendingMachineFiller {
 
     private static final Logger LOG = LogManager.getLogger(VendingMachineFiller.class);
-    private static final Collection<Product> products = new HashSet<>();
+    private final ProductIdBuilder productBuilder = new ProductIdBuilder();
 
-    static {
-        products.add(new SisiNoBubbles());
-        products.add(new Doritos());
-        products.add(new MarsBar());
-        products.add(new Snickers());
-        products.add(new Doritos());
-        products.add(new CocaCola());
+    private Collection<Product> buildProducts() {
+        Collection<Product> products = new TreeSet<>();
+        products.add(Doritos.valueOf("Doritos", Ean.valueOf("8710398158130"), ChipFlavour.CORN));
+        products.add(CocaCola.valueOf());
+        products.add(SisiNoBubbles.valueOf());
+        products.add(MarsBar.valueOf());
+        products.add(Snickers.valueOf());
+        products.add(Doritos.valueOf("Doritos Sweeet Chili",
+                Ean.valueOf("8710398603319"), ChipFlavour.SWEET_CHILLI_PEPPER));
+        return products;
     }
 
     public void fillVendingMachine(VendingMachine vendingMachine) {
-        LOG.info("Filling vendingmachine " + vendingMachine.getName() + " with " + products.size() + " products.");
-        vendingMachine.refill(products);
+        buildProducts();
+        LOG.info("Filling vendingmachine " + vendingMachine.getName() + " with " + buildProducts().size() + " products.");
+        vendingMachine.refill(buildProducts());
     }
 }

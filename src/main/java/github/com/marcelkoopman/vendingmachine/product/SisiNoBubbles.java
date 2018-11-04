@@ -4,23 +4,16 @@ import github.com.marcelkoopman.vendingmachine.product.model.Beverage;
 import github.com.marcelkoopman.vendingmachine.product.model.Ean;
 
 public class SisiNoBubbles extends Beverage {
-    @Override
-    protected boolean hasSoda() {
-        return false;
+
+    private SisiNoBubbles(String id, String name, Ean ean, boolean hasSoda, boolean containsAlcohol) {
+        this.id = id;
+        this.name = name;
+        this.ean = ean;
+        this.soda = hasSoda;
+        this.alcohol = containsAlcohol;
     }
 
-    @Override
-    protected boolean containsAlcohol() {
-        return false;
-    }
-
-    @Override
-    public Ean getEAN() {
-        return Ean.valueOf("8715600234565");
-    }
-
-    @Override
-    public String getName() {
-        return "Strawberry No Bubbles";
+    public static SisiNoBubbles valueOf() {
+        return new SisiNoBubbles(ProductIdBuilder.getNextId(), "Strawberry No Bubbles", Ean.valueOf("8715600234565"), false, false);
     }
 }

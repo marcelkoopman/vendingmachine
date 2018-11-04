@@ -20,4 +20,6 @@ public interface PriceRegistry {
      * @return Currency
      */
     Currency getCurrency();
+
+    String getFormattedPrice(Product product);
 }

@@ -103,7 +103,7 @@ public class VendingMachineTerminal {
             LOGGER.info("Available products");
             LOGGER.info("------------------");
             for (int i = 0; i < products.length; ++i) {
-                LOGGER.info("" + i + " = " + products[i].getName());
+                LOGGER.info("" + i + " = " + products[i]);
             }
         }
     }

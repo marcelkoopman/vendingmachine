@@ -5,25 +5,16 @@ import github.com.marcelkoopman.vendingmachine.product.model.Ean;
 
 public class CocaCola extends Beverage {
 
-    @Override
-    public Ean getEAN() {
-        return Ean.valueOf("1535589200415");
+    private CocaCola(String id, String name, Ean ean, boolean hasSoda, boolean containsAlcohol) {
+        this.id = id;
+        this.name = name;
+        this.ean = ean;
+        this.soda = hasSoda;
+        this.alcohol = containsAlcohol;
     }
 
-    @Override
-    public String getName() {
-        return "Coca Cola";
+    public static CocaCola valueOf() {
+        return new CocaCola(ProductIdBuilder.getNextId(), "Coca Cola", Ean.valueOf("1535589200415"), true, false);
     }
-
-    @Override
-    protected boolean hasSoda() {
-        return true;
-    }
-
-    @Override
-    protected boolean containsAlcohol() {
-        return false;
-    }
-
 
 }

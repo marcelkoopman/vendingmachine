@@ -2,6 +2,8 @@ package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.PriceRegistry;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.validation.VendingMachineV1Validator;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.validation.VendingMachineValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,11 +17,13 @@ public class VendingMachineV1 implements VendingMachine {
     private static final String NAME = "V1";
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
     private final PriceRegistry priceRegistry;
+    private final VendingMachineValidator validator;
 
     private Set<Product> productList = new TreeSet();
 
     public VendingMachineV1(PriceRegistry priceRegistry) {
         this.priceRegistry = priceRegistry;
+        this.validator = new VendingMachineV1Validator(priceRegistry);
     }
 
     @Override
@@ -38,6 +42,7 @@ public class VendingMachineV1 implements VendingMachine {
         LOGGER.info("Vending Machine refilling with " + products.size() + " products");
         productList.addAll(products);
         LOGGER.info("Now containing " + this.productList.size() + " products");
+        validator.validate(products);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public String getFormattedPrice(Product product) {
-        return priceRegistry.getCurrency().getSymbol() + " " + priceRegistry.getPriceForProduct(product);
+        return priceRegistry.getFormattedPrice(product);
     }
 
     @Override
@@ -57,8 +62,9 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public void buyProduct(Product product) {
-        final Set<Product> newProducts = productList.stream().filter(p -> !p.getUUID().equals(product.getUUID())).collect(Collectors.toSet());
+        final Set<Product> newProducts = productList.stream().filter(p -> !p.getId().equals(product.getId()))
+                .collect(Collectors.toCollection(() -> new TreeSet<>()));
         this.productList = newProducts;
-        LOGGER.info("Product " + product.getName() + " bought for " + getFormattedPrice(product));
+        LOGGER.info("Product " + product + " bought for " + getFormattedPrice(product));
     }
 }

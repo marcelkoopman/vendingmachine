@@ -5,16 +5,21 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public abstract class Beverage extends AbstractProduct {
 
-    protected abstract boolean hasSoda();
+    protected boolean soda, alcohol;
 
-    protected abstract boolean containsAlcohol();
+    protected boolean hasSoda() {
+        return soda;
+    }
+
+    protected boolean containsAlcohol() {
+        return alcohol;
+    }
 
     @Override
     public String toString() {
 
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).
                 append("name", getName()).
-                append("ean", getEAN().getEan()).
                 append("soda", hasSoda()).
                 append("alcohol", containsAlcohol()).
                 toString();

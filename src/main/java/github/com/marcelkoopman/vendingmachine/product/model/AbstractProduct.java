@@ -1,28 +1,34 @@
 package github.com.marcelkoopman.vendingmachine.product.model;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import java.util.UUID;
+import org.apache.commons.lang3.builder.*;
 
 public abstract class AbstractProduct implements Product, Comparable<Product> {
 
     protected Ean ean;
     protected String name;
 
-    protected UUID uuid = UUID.randomUUID();
+    protected String id;
 
     @Override
-    public UUID getUUID() {
-        return uuid;
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public Ean getEAN() {
+        return ean;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
     public int compareTo(Product o) {
         return new CompareToBuilder()
                 .append(this.ean, o.getEAN())
-                .append(this.uuid, o.getUUID())
+                .append(this.id, o.getId())
                 .append(this.name, o.getName())
                 .toComparison();
     }
@@ -31,7 +37,7 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
     public int hashCode() {
         return new HashCodeBuilder().
                 append(ean).
-                append(uuid).
+                append(id).
                 append(name).
                 toHashCode();
     }
@@ -41,11 +47,20 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
         if (obj instanceof Product) {
             final Product o = (Product) obj;
             return new EqualsBuilder().append(this.ean, o.getEAN())
-                    .append(this.uuid, o.getUUID())
+                    .append(this.id, o.getId())
                     .append(this.name, o.getName())
                     .isEquals();
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).
+                append("name", getName()).
+                append("id", getId()).
+                toString();
     }
 }
