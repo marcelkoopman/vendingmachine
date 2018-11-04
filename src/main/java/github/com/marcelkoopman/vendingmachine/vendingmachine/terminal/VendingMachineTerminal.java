@@ -21,6 +21,7 @@ public class VendingMachineTerminal {
         commands.put("help", "Show this help text");
         commands.put("select", "Select this product");
         commands.put("price", "Show price of this product");
+        commands.put("buy", "Buy product");
         commands.put("list", "Show all available products");
         commands.put("quit", "Quit application");
     }
@@ -84,6 +85,7 @@ public class VendingMachineTerminal {
     private void doRefill() {
         vendingMachineFiller.fillVendingMachine(vendingMachine);
         doListProducts();
+        doHelp();
     }
 
     private void doSelectProduct(String line) {
