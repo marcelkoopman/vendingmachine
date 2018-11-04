@@ -3,6 +3,7 @@ package github.com.marcelkoopman.vendingmachine.vendingmachine;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 
 import java.util.Collection;
+import java.util.Set;
 
 public interface VendingMachine {
 
@@ -34,10 +35,12 @@ public interface VendingMachine {
 
     Product[] getAvailableProducts();
 
+    Set<Product> getProducts();
+
     /**
      * Purchase selected product
      *
      * @param product
      */
-    void buyProduct(Product product);
+    void buyProduct(Product product) throws VendingMachineException;
 }

@@ -1,6 +1,9 @@
 package github.com.marcelkoopman.vendingmachine.product.model;
 
-import org.apache.commons.lang3.builder.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public abstract class AbstractProduct implements Product, Comparable<Product> {
 
@@ -26,11 +29,11 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
 
     @Override
     public int compareTo(Product o) {
-        return new CompareToBuilder()
-                .append(this.ean, o.getEAN())
-                .append(this.id, o.getId())
-                .append(this.name, o.getName())
-                .toComparison();
+        int compared = this.getName().compareTo(o.getName());
+        if (compared == 0) {
+            compared = this.getId().compareTo(o.getId());
+        }
+        return compared;
     }
 
     @Override

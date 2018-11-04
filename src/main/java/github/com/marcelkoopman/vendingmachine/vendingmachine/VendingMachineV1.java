@@ -61,10 +61,18 @@ public class VendingMachineV1 implements VendingMachine {
     }
 
     @Override
-    public void buyProduct(Product product) {
-        final Set<Product> newProducts = productList.stream().filter(p -> !p.getId().equals(product.getId()))
-                .collect(Collectors.toCollection(() -> new TreeSet<>()));
-        this.productList = newProducts;
-        LOGGER.info("Product " + product + " bought for " + getFormattedPrice(product));
+    public Set<Product> getProducts() {
+        return productList;
+    }
+
+    @Override
+    public void buyProduct(Product product) throws VendingMachineException {
+        if (productList.isEmpty()) {
+            throw new VendingMachineException("Out of stock");
+        } else {
+            this.productList = productList.stream().filter(p -> !p.getId().equals(product.getId()))
+                    .collect(Collectors.toCollection(() -> new TreeSet<>()));
+            LOGGER.info("Product " + product + " bought for " + getFormattedPrice(product));
+        }
     }
 }

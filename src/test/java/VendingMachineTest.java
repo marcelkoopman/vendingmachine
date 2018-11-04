@@ -1,4 +1,5 @@
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineException;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.EuroRegionPrices;
@@ -8,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Set;
 
 public class VendingMachineTest {
 
@@ -28,7 +31,17 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void testBuyOneProduct() {
+    public void testSorting() {
+        filler.fillVendingMachine(vendingMachine);
+
+        final Set<Product> products = vendingMachine.getProducts();
+        for (Product p : products) {
+            LOGGER.info(p.getName());
+        }
+    }
+
+    @Test
+    public void testBuyOneProduct() throws VendingMachineException {
 
         final Product[] products = testRefill();
 
@@ -38,16 +51,21 @@ public class VendingMachineTest {
         Assert.assertEquals(5, availableProducts.length);
     }
 
-    @Test
-    public void testBuyWithOutOfStock() {
+    @Test(expected = VendingMachineException.class)
+    public void testBuyWithOutOfStock() throws VendingMachineException {
 
         final Product[] products = testRefill();
 
-        for (int i = 0; i < products.length; ++i)
-            vendingMachine.buyProduct(products[i]);
-
+        try {
+            for (int i = 0; i < products.length; ++i)
+                vendingMachine.buyProduct(products[i]);
+        } catch (VendingMachineException e) {
+            Assert.fail("Exception unexpected");
+        }
         final Product[] availableProducts = vendingMachine.getAvailableProducts();
         Assert.assertEquals(0, availableProducts.length);
+
+        vendingMachine.buyProduct(products[0]);
     }
 
     private void refillVendingMachine() {
@@ -60,11 +78,11 @@ public class VendingMachineTest {
         refillVendingMachine();
 
         final Product[] products = vendingMachine.getAvailableProducts();
-        Assert.assertEquals("Doritos Sweeet Chili", products[0].getName());
-        Assert.assertEquals("Coca Cola", products[1].getName());
-        Assert.assertEquals("Mars Bar", products[2].getName());
-        Assert.assertEquals("Snickers Bar", products[3].getName());
-        Assert.assertEquals("Doritos", products[4].getName());
+        Assert.assertEquals("Coca Cola", products[0].getName());
+        Assert.assertEquals("Doritos", products[1].getName());
+        Assert.assertEquals("Doritos Sweeet Chili", products[2].getName());
+        Assert.assertEquals("Mars Bar", products[3].getName());
+        Assert.assertEquals("Snickers Bar", products[4].getName());
         Assert.assertEquals("Strawberry No Bubbles", products[5].getName());
         return products;
     }

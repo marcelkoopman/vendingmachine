@@ -42,7 +42,7 @@ public class VendingMachineTerminal {
     }
 
     private boolean readFromConsole(Scanner scanner) {
-        final String line = scanner.nextLine();
+        final String line = scanner.nextLine().trim();
         final boolean continueReading;
         if ("help".equals(line)) {
             doHelp();
@@ -143,7 +143,7 @@ public class VendingMachineTerminal {
         if (split == null || split.length <= 1) {
             throw new VendingMachineException("Unknown index for product!");
         }
-        return Integer.valueOf(split[1]);
+        return Integer.valueOf(split[1].trim());
     }
 
     private String getHelp() {
