@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * A VendingMachine "filler" fills the vendng machine with products.
+ */
 public class VendingMachineFiller {
 
     private static final Logger LOG = LogManager.getLogger(VendingMachineFiller.class);

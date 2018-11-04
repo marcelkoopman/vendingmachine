@@ -4,22 +4,23 @@ package github.com.marcelkoopman.vendingmachine;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.DefaultPriceRegistry;
+import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.EuroRegionPrices;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.terminal.VendingMachineTerminal;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-
+/**
+ * Main app to boot the vending machine
+ */
 public class Main {
 
-    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
-
-    private static final VendingMachine vendingMachine = new VendingMachineV1(new DefaultPriceRegistry());
-    private static final VendingMachineFiller filler = new VendingMachineFiller();
 
     public static void main(String[] args) {
+
+        final VendingMachine vendingMachine = new VendingMachineV1(new EuroRegionPrices());
+        final VendingMachineFiller filler = new VendingMachineFiller();
+        final VendingMachineTerminal terminal = new VendingMachineTerminal(vendingMachine, filler);
+
         vendingMachine.boot();
-        new VendingMachineTerminal(vendingMachine, filler).boot();
+        terminal.boot();
         vendingMachine.shutDown();
     }
 }

@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class DefaultPriceRegistry implements PriceRegistry {
+public class EuroRegionPrices implements PriceRegistry {
 
-    private static final Logger LOG = LogManager.getLogger(DefaultPriceRegistry.class);
+    private static final Logger LOG = LogManager.getLogger(EuroRegionPrices.class);
     private static final Map<Ean, Double> priceList = new HashMap<>();
 
     static {
