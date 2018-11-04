@@ -122,7 +122,7 @@ public class VendingMachineTerminal {
     private void doPriceProduct(String line) {
         try {
             final Product product = getProductFromInput(line);
-            LOGGER.info("Product price: " + vendingMachine.getFormattedPrice(product));
+            LOGGER.info(product + " price: " + vendingMachine.getFormattedPrice(product));
         } catch (VendingMachineException e) {
             LOGGER.error(e);
         }
