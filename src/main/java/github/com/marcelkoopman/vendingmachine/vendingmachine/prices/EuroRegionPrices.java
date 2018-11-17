@@ -7,44 +7,49 @@ import org.apache.logging.log4j.Logger;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 public class EuroRegionPrices implements PriceRegistry {
 
     private static final Logger LOG = LogManager.getLogger(EuroRegionPrices.class);
-    private static final Map<Ean, Double> priceList = new HashMap<>();
+    private static final Map<Ean, Optional<Double>> priceList = new HashMap<>();
+
     static {
-        priceList.put(Ean.valueOf("5000159408301"), 0.75d);
-        priceList.put(Ean.valueOf("6294001813286"), 0.65d);
-        priceList.put(Ean.valueOf("8715600234565"), 0.70d);
-        priceList.put(Ean.valueOf("8710398158130"), 1.50d);
-        // 1535589200415 Coca Cola
+        priceList.put(Ean.valueOf("5000159408301"), of(0.75d));
+        priceList.put(Ean.valueOf("6294001813286"), of(0.65d));
+        priceList.put(Ean.valueOf("8715600234565"), of(0.70d));
+        priceList.put(Ean.valueOf("8710398158130"), of(1.50d));
+        priceList.put(Ean.valueOf("1535589200415"), empty());
     }
 
     private final NumberFormat formatter = new DecimalFormat("#0.00");
 
     @Override
-    public double getPriceForProduct(Product product) {
-        final Double price = priceList.get(product.getEAN());
-        final double priceValue;
-        if (price == null || price.doubleValue() == 0d) {
-            priceValue = 0d;
+    public Optional<Double> getPriceForProduct(Product product) {
+        final Optional<Double> found = priceList.entrySet().stream().filter(p -> p.getKey().equals(product.getEAN())).findFirst().flatMap(p -> p.getValue());
+        return found;
+    }
+
+    @Override
+    public Optional<Currency> getCurrency() {
+        final Currency currency = Currency.getInstance(Locale.getDefault());
+        final Optional<Currency> result;
+        if (currency == null) {
+            result = empty();
         } else {
-            priceValue = price.doubleValue();
+            result = of(currency);
         }
-        return priceValue;
+        return result;
     }
 
     @Override
-    public Currency getCurrency() {
-        return Currency.getInstance(Locale.getDefault());
-    }
-
-    @Override
-    public String getFormattedPrice(Product product) {
-        return this.getCurrency().getSymbol() + " " + formatter.format(getPriceForProduct(product));
+    public Optional<String> getFormattedPrice(Product product) {
+        return this.getCurrency().map(
+                c -> getPriceForProduct(product).map(
+                        p -> c.getSymbol() + " " + formatter.format(p))
+        ).flatMap(p -> p);
     }
 }

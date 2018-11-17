@@ -25,7 +25,7 @@ public class VendingMachineFiller {
         products.add(SisiNoBubbles.valueOf());
         products.add(MarsBar.valueOf());
         products.add(Snickers.valueOf());
-        products.add(Doritos.valueOf("Doritos Sweeet Chili",
+        products.add(Doritos.valueOf("Doritos Sweet Chili",
                 Ean.valueOf("8710398603319"), ChipFlavour.SWEET_CHILLI_PEPPER));
         return products;
     }

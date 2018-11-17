@@ -2,8 +2,6 @@ package github.com.marcelkoopman.vendingmachine.vendingmachine;
 
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.PriceRegistry;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.validation.VendingMachineV1Validator;
-import github.com.marcelkoopman.vendingmachine.vendingmachine.validation.VendingMachineValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,19 +9,18 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class VendingMachineV1 implements VendingMachine {
 
     private static final String NAME = "V1";
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
     private final PriceRegistry priceRegistry;
-    private final VendingMachineValidator validator;
 
     private Set<Product> productList = new TreeSet();
 
     public VendingMachineV1(PriceRegistry priceRegistry) {
         this.priceRegistry = priceRegistry;
-        this.validator = new VendingMachineV1Validator(priceRegistry);
     }
 
     @Override
@@ -42,7 +39,6 @@ public class VendingMachineV1 implements VendingMachine {
         LOGGER.info("Vending Machine refilling with " + products.size() + " products");
         productList.addAll(products);
         LOGGER.info("Now containing " + this.productList.size() + " products");
-        validator.validate(products);
     }
 
     @Override
@@ -52,12 +48,12 @@ public class VendingMachineV1 implements VendingMachine {
 
     @Override
     public String getFormattedPrice(Product product) {
-        return priceRegistry.getFormattedPrice(product);
+        return priceRegistry.getFormattedPrice(product).orElse("free");
     }
 
     @Override
-    public Product[] getAvailableProducts() {
-        return productList.toArray(new Product[productList.size()]);
+    public Stream<Product> getAllProducts() {
+        return productList.stream();
     }
 
     @Override

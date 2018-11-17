@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -89,63 +90,41 @@ public class VendingMachineTerminal {
     }
 
     private void doSelectProduct(String line) {
-        try {
-            final Product product = getProductFromInput(line);
-            LOGGER.info("Product info: " + product);
-        } catch (VendingMachineException e) {
-            LOGGER.error(e);
-        }
+        getProductFromInput(line).ifPresent(p -> LOGGER.info("Product info: " + p));
     }
 
     private void doListProducts() {
-        final Product[] products = vendingMachine.getAvailableProducts();
-        if (products.length == 0) {
-            LOGGER.info("Out of stock, use refill to restock");
-        } else {
-            LOGGER.info("Available products");
-            LOGGER.info("------------------");
-            for (int i = 0; i < products.length; ++i) {
-                LOGGER.info("" + i + " = " + products[i]);
-            }
-        }
+        vendingMachine.getAllProducts().forEach(p -> LOGGER.info("Product: " + p));
     }
 
-    private Product getProductFromInput(String line) throws VendingMachineException {
-        final Integer productNo = parseProductNumber(line);
-        final Product[] products = vendingMachine.getAvailableProducts();
-        if (productNo >= 0 && productNo < products.length) {
-            final Product product = products[productNo];
-            return product;
-        } else {
-            throw new VendingMachineException("This product number " + productNo + " does not exist");
+    private Optional<Product> getProductFromInput(String line) {
+        final Optional<Product> product = vendingMachine.getAllProducts().filter(p -> findProductInLine(line, p)).findFirst();
+        if (product.isEmpty()) {
+            LOGGER.warn("Cant determine any product matching " + line);
         }
+        return product;
+    }
+
+    private boolean findProductInLine(String line, Product p) {
+        final int toffset = line.indexOf(' ') + 1;
+        final String seek = line.substring(toffset).trim().toUpperCase();
+        final boolean found = p.getName().toUpperCase().contains(seek);
+        return found;
     }
 
     private void doPriceProduct(String line) {
-        try {
-            final Product product = getProductFromInput(line);
-            LOGGER.info(product + " price: " + vendingMachine.getFormattedPrice(product));
-        } catch (VendingMachineException e) {
-            LOGGER.error(e);
-        }
+        getProductFromInput(line).ifPresent(p -> LOGGER.info(p + " price: " + vendingMachine.getFormattedPrice(p)));
     }
 
     private void doBuyProduct(String line) {
-        try {
-            final Product product = getProductFromInput(line);
-            vendingMachine.buyProduct(product);
-            doListProducts();
-        } catch (VendingMachineException e) {
-            LOGGER.error(e);
-        }
-    }
-
-    private Integer parseProductNumber(String line) throws VendingMachineException {
-        final String[] split = line.split(" ");
-        if (split == null || split.length <= 1) {
-            throw new VendingMachineException("Unknown index for product!");
-        }
-        return Integer.valueOf(split[1].trim());
+        getProductFromInput(line).ifPresent(p -> {
+            try {
+                vendingMachine.buyProduct(p);
+            } catch (VendingMachineException e) {
+                LOGGER.error(e);
+            }
+        });
+        doListProducts();
     }
 
     private String getHelp() {

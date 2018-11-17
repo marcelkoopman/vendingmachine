@@ -27,7 +27,7 @@ public class VendingMachineTest {
         filler = new VendingMachineFiller();
 
         Assert.assertTrue(vendingMachine.boot());
-        Assert.assertEquals("Vending machine should be empty initially", 0, vendingMachine.getAvailableProducts().length);
+        Assert.assertEquals("Vending machine should be empty initially", 0, vendingMachine.getProducts().size());
     }
 
     @Test
@@ -47,8 +47,8 @@ public class VendingMachineTest {
 
         vendingMachine.buyProduct(products[1]); // Coca Cola
 
-        final Product[] availableProducts = vendingMachine.getAvailableProducts();
-        Assert.assertEquals(5, availableProducts.length);
+        final Set<Product> availableProducts = vendingMachine.getProducts();
+        Assert.assertEquals(5, availableProducts.size());
     }
 
     @Test(expected = VendingMachineException.class)
@@ -62,25 +62,26 @@ public class VendingMachineTest {
         } catch (VendingMachineException e) {
             Assert.fail("Exception unexpected");
         }
-        final Product[] availableProducts = vendingMachine.getAvailableProducts();
-        Assert.assertEquals(0, availableProducts.length);
+        final Set<Product> availableProducts = vendingMachine.getProducts();
+        Assert.assertEquals(0, availableProducts.size());
 
         vendingMachine.buyProduct(products[0]);
     }
 
     private void refillVendingMachine() {
         filler.fillVendingMachine(vendingMachine);
-        Assert.assertEquals("Vending machine filled with 6 products", 6, vendingMachine.getAvailableProducts().length);
+        final Set<Product> availableProducts = vendingMachine.getProducts();
+        Assert.assertEquals("Vending machine filled with 6 products", 6, availableProducts.size());
     }
 
 
     private Product[] testRefill() {
         refillVendingMachine();
 
-        final Product[] products = vendingMachine.getAvailableProducts();
+        final Product[] products = vendingMachine.getProducts().toArray(new Product[vendingMachine.getProducts().size()]);
         Assert.assertEquals("Coca Cola", products[0].getName());
         Assert.assertEquals("Doritos", products[1].getName());
-        Assert.assertEquals("Doritos Sweeet Chili", products[2].getName());
+        Assert.assertEquals("Doritos Sweet Chili", products[2].getName());
         Assert.assertEquals("Mars Bar", products[3].getName());
         Assert.assertEquals("Snickers Bar", products[4].getName());
         Assert.assertEquals("Strawberry No Bubbles", products[5].getName());

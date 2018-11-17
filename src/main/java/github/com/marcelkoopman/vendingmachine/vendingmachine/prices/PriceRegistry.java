@@ -3,6 +3,7 @@ package github.com.marcelkoopman.vendingmachine.vendingmachine.prices;
 import github.com.marcelkoopman.vendingmachine.product.model.Product;
 
 import java.util.Currency;
+import java.util.Optional;
 
 public interface PriceRegistry {
 
@@ -12,14 +13,14 @@ public interface PriceRegistry {
      * @param product
      * @return price
      */
-    double getPriceForProduct(Product product);
+    Optional<Double> getPriceForProduct(Product product);
 
     /**
      * Currency in which prices are noted
      *
      * @return Currency
      */
-    Currency getCurrency();
+    Optional<Currency> getCurrency();
 
-    String getFormattedPrice(Product product);
+    Optional<String> getFormattedPrice(Product product);
 }

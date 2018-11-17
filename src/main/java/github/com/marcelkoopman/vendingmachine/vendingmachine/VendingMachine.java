@@ -4,6 +4,7 @@ import github.com.marcelkoopman.vendingmachine.product.model.Product;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public interface VendingMachine {
 
@@ -33,7 +34,7 @@ public interface VendingMachine {
      */
     String getFormattedPrice(Product product);
 
-    Product[] getAvailableProducts();
+    Stream<Product> getAllProducts();
 
     Set<Product> getProducts();
 
