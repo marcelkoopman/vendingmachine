@@ -1,7 +1,6 @@
 package github.com.marcelkoopman.vendingmachine;
 
 
-import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachine;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineFiller;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.VendingMachineV1;
 import github.com.marcelkoopman.vendingmachine.vendingmachine.prices.EuroRegionPrices;
@@ -15,9 +14,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final VendingMachine vendingMachine = new VendingMachineV1(new EuroRegionPrices());
-        final VendingMachineFiller filler = new VendingMachineFiller();
-        final VendingMachineTerminal terminal = new VendingMachineTerminal(vendingMachine, filler);
+        var vendingMachine = new VendingMachineV1(new EuroRegionPrices());
+        var filler = new VendingMachineFiller();
+        var terminal = new VendingMachineTerminal(vendingMachine, filler);
 
         vendingMachine.boot();
         terminal.boot();

@@ -34,7 +34,7 @@ public class EuroRegionPrices implements PriceRegistry {
 
     @Override
     public Optional<Currency> getCurrency() {
-        final Currency currency = Currency.getInstance(Locale.getDefault());
+        var currency = Currency.getInstance(Locale.getDefault());
         final Optional<Currency> result;
         if (currency == null) {
             result = empty();

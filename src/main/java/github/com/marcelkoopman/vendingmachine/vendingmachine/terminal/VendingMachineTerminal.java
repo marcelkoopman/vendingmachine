@@ -44,7 +44,7 @@ public class VendingMachineTerminal {
     }
 
     private boolean readFromConsole(Scanner scanner) {
-        final String line = scanner.nextLine().trim();
+        var line = scanner.nextLine().trim();
         final boolean continueReading;
         if ("help".equals(line)) {
             doHelp();
@@ -98,7 +98,7 @@ public class VendingMachineTerminal {
     }
 
     private Optional<Product> getProductFromInput(String line) {
-        final Optional<Product> product = vendingMachine.getAllProducts().filter(p -> findProductInLine(line, p)).findFirst();
+        var product = vendingMachine.getAllProducts().filter(p -> findProductInLine(line, p)).findFirst();
         if (product.isEmpty()) {
             LOGGER.warn("Cant determine any product matching " + line);
         }
@@ -106,8 +106,8 @@ public class VendingMachineTerminal {
     }
 
     private boolean findProductInLine(String line, Product p) {
-        final int toffset = line.indexOf(' ') + 1;
-        final String seek = line.substring(toffset).trim().toUpperCase();
+        var toffset = line.indexOf(' ') + 1;
+        var seek = line.substring(toffset).trim().toUpperCase();
         return p.getName().toUpperCase().contains(seek);
     }
 
@@ -127,7 +127,7 @@ public class VendingMachineTerminal {
     }
 
     private String getHelp() {
-        final StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         builder.append(commands);
         return builder.toString();
     }

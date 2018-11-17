@@ -46,7 +46,7 @@ public class Ean implements Comparable<Ean> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Ean) {
-            final Ean o = (Ean) obj;
+            var o = (Ean) obj;
             return new EqualsBuilder().append(this.ean, o.getEan()).isEquals();
         } else {
             return false;

@@ -48,7 +48,7 @@ public abstract class AbstractProduct implements Product, Comparable<Product> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Product) {
-            final Product o = (Product) obj;
+            var o = (Product) obj;
             return new EqualsBuilder().append(this.ean, o.getEAN())
                     .append(this.id, o.getId())
                     .append(this.name, o.getName())
