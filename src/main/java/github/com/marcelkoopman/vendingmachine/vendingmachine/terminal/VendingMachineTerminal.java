@@ -108,8 +108,7 @@ public class VendingMachineTerminal {
     private boolean findProductInLine(String line, Product p) {
         final int toffset = line.indexOf(' ') + 1;
         final String seek = line.substring(toffset).trim().toUpperCase();
-        final boolean found = p.getName().toUpperCase().contains(seek);
-        return found;
+        return p.getName().toUpperCase().contains(seek);
     }
 
     private void doPriceProduct(String line) {

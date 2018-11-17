@@ -17,7 +17,7 @@ public class VendingMachineV1 implements VendingMachine {
     private static final Logger LOGGER = LogManager.getLogger(VendingMachineV1.class.getName());
     private final PriceRegistry priceRegistry;
 
-    private Set<Product> productList = new TreeSet();
+    private Set<Product> productList = new TreeSet<>();
 
     public VendingMachineV1(PriceRegistry priceRegistry) {
         this.priceRegistry = priceRegistry;

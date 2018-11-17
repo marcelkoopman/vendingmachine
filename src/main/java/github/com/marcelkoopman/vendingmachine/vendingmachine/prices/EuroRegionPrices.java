@@ -29,8 +29,7 @@ public class EuroRegionPrices implements PriceRegistry {
 
     @Override
     public Optional<Double> getPriceForProduct(Product product) {
-        final Optional<Double> found = priceList.entrySet().stream().filter(p -> p.getKey().equals(product.getEAN())).findFirst().flatMap(p -> p.getValue());
-        return found;
+        return priceList.entrySet().stream().filter(p -> p.getKey().equals(product.getEAN())).findFirst().flatMap(p -> p.getValue());
     }
 
     @Override
